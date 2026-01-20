@@ -747,163 +747,104 @@ const rateCases = [
 ];
 
 // Monthly data with 12-month rolling averages (sampled for key dates)
+// Comprehensive monthly data (2022-2025) - Verified from EIA Form 861M
 const monthlyData = [
-  {
-    date: "2015-01",
-    OregonIOUs: 0.115091,
-    OregonIOUs_MA12: 0.112369,
-    Municipal: 0.11178,
-    Municipal_MA12: 0.108697,
-    PUD: 0.089247,
-    PUD_MA12: 0.083219,
-    Cooperative: 0.08273,
-    Cooperative_MA12: 0.073817,
-    USAverage: 0.124557,
-    USAverage_MA12: 0.125197,
-  },
-  {
-    date: "2016-01",
-    OregonIOUs: 0.114626,
-    OregonIOUs_MA12: 0.113642,
-    Municipal: 0.114118,
-    Municipal_MA12: 0.11075,
-    PUD: 0.090689,
-    PUD_MA12: 0.087424,
-    Cooperative: 0.085,
-    Cooperative_MA12: 0.081362,
-    USAverage: 0.125247,
-    USAverage_MA12: 0.126504,
-  },
-  {
-    date: "2017-01",
-    OregonIOUs: 0.114081,
-    OregonIOUs_MA12: 0.112408,
-    Municipal: 0.113954,
-    Municipal_MA12: 0.112753,
-    PUD: 0.092233,
-    PUD_MA12: 0.089975,
-    Cooperative: 0.087,
-    Cooperative_MA12: 0.083139,
-    USAverage: 0.128119,
-    USAverage_MA12: 0.125492,
-  },
-  {
-    date: "2018-01",
-    OregonIOUs: 0.118276,
-    OregonIOUs_MA12: 0.112921,
-    Municipal: 0.114595,
-    Municipal_MA12: 0.112054,
-    PUD: 0.094862,
-    PUD_MA12: 0.091239,
-    Cooperative: 0.091,
-    Cooperative_MA12: 0.085764,
-    USAverage: 0.128357,
-    USAverage_MA12: 0.128866,
-  },
-  {
-    date: "2019-01",
-    OregonIOUs: 0.119258,
-    OregonIOUs_MA12: 0.116139,
-    Municipal: 0.115447,
-    Municipal_MA12: 0.113159,
-    PUD: 0.097319,
-    PUD_MA12: 0.096073,
-    Cooperative: 0.099,
-    Cooperative_MA12: 0.09374,
-    USAverage: 0.129581,
-    USAverage_MA12: 0.128673,
-  },
-  {
-    date: "2020-01",
-    OregonIOUs: 0.119897,
-    OregonIOUs_MA12: 0.116088,
-    Municipal: 0.115819,
-    Municipal_MA12: 0.11354,
-    PUD: 0.097785,
-    PUD_MA12: 0.095625,
-    Cooperative: 0.101,
-    Cooperative_MA12: 0.096046,
-    USAverage: 0.131298,
-    USAverage_MA12: 0.130138,
-  },
-  {
-    date: "2021-01",
-    OregonIOUs: 0.121406,
-    OregonIOUs_MA12: 0.117298,
-    Municipal: 0.116191,
-    Municipal_MA12: 0.113325,
-    PUD: 0.098251,
-    PUD_MA12: 0.097039,
-    Cooperative: 0.103,
-    Cooperative_MA12: 0.098475,
-    USAverage: 0.133019,
-    USAverage_MA12: 0.131546,
-  },
-  {
-    date: "2022-01",
-    OregonIOUs: 0.122915,
-    OregonIOUs_MA12: 0.119948,
-    Municipal: 0.116563,
-    Municipal_MA12: 0.113735,
-    PUD: 0.098717,
-    PUD_MA12: 0.097426,
-    Cooperative: 0.105,
-    Cooperative_MA12: 0.099643,
-    USAverage: 0.146543,
-    USAverage_MA12: 0.136576,
-  },
-  {
-    date: "2023-01",
-    OregonIOUs: 0.137424,
-    OregonIOUs_MA12: 0.120072,
-    Municipal: 0.123935,
-    Municipal_MA12: 0.116904,
-    PUD: 0.099183,
-    PUD_MA12: 0.096603,
-    Cooperative: 0.107,
-    Cooperative_MA12: 0.098213,
-    USAverage: 0.157267,
-    USAverage_MA12: 0.150401,
-  },
-  {
-    date: "2024-01",
-    OregonIOUs: 0.158933,
-    OregonIOUs_MA12: 0.137892,
-    Municipal: 0.131307,
-    Municipal_MA12: 0.12222,
-    PUD: 0.105649,
-    PUD_MA12: 0.096541,
-    Cooperative: 0.128,
-    Cooperative_MA12: 0.109371,
-    USAverage: 0.163991,
-    USAverage_MA12: 0.159992,
-  },
-  {
-    date: "2024-06",
-    OregonIOUs: 0.173987,
-    OregonIOUs_MA12: 0.152635,
-    Municipal: 0.137679,
-    Municipal_MA12: 0.126082,
-    PUD: 0.109115,
-    PUD_MA12: 0.099892,
-    Cooperative: 0.133,
-    Cooperative_MA12: 0.118643,
-    USAverage: 0.170523,
-    USAverage_MA12: 0.162439,
-  },
-  {
-    date: "2024-12",
-    OregonIOUs: 0.159041,
-    OregonIOUs_MA12: 0.163335,
-    Municipal: 0.121398,
-    Municipal_MA12: 0.130728,
-    PUD: 0.096621,
-    PUD_MA12: 0.103075,
-    Cooperative: 0.124,
-    Cooperative_MA12: 0.127677,
-    USAverage: 0.162713,
-    USAverage_MA12: 0.164793,
-  },
+  { date: "2022-01", OregonIOUs: 0.1175, Municipal: 0.1052, PUD: 0.0847, Cooperative: 0.0936, USAverage: 0.1364, OregonIOUs_bill: 133.09, Municipal_bill: 142.41, PUD_bill: 185.78, Cooperative_bill: 179.60, USAverage_bill: 138.16 },
+  { date: "2022-02", OregonIOUs: 0.1171, Municipal: 0.1137, PUD: 0.0979, Cooperative: 0.0955, USAverage: 0.1376, OregonIOUs_bill: 111.99, Municipal_bill: 128.60, PUD_bill: 162.31, Cooperative_bill: 146.96, USAverage_bill: 124.37 },
+  { date: "2022-03", OregonIOUs: 0.1178, Municipal: 0.1143, PUD: 0.0945, Cooperative: 0.0969, USAverage: 0.1441, OregonIOUs_bill: 103.97, Municipal_bill: 121.24, PUD_bill: 159.28, Cooperative_bill: 133.75, USAverage_bill: 114.52 },
+  { date: "2022-04", OregonIOUs: 0.1187, Municipal: 0.1182, PUD: 0.0956, Cooperative: 0.0991, USAverage: 0.1457, OregonIOUs_bill: 99.11, Municipal_bill: 106.85, PUD_bill: 117.77, Cooperative_bill: 115.53, USAverage_bill: 102.02 },
+  { date: "2022-05", OregonIOUs: 0.1220, Municipal: 0.1205, PUD: 0.0985, Cooperative: 0.1000, USAverage: 0.1489, OregonIOUs_bill: 88.46, Municipal_bill: 96.76, PUD_bill: 129.60, Cooperative_bill: 109.78, USAverage_bill: 117.34 },
+  { date: "2022-06", OregonIOUs: 0.1238, Municipal: 0.1264, PUD: 0.1079, Cooperative: 0.1044, USAverage: 0.1530, OregonIOUs_bill: 84.24, Municipal_bill: 86.16, PUD_bill: 97.64, Cooperative_bill: 88.52, USAverage_bill: 148.88 },
+  { date: "2022-07", OregonIOUs: 0.1220, Municipal: 0.1254, PUD: 0.1023, Cooperative: 0.1053, USAverage: 0.1531, OregonIOUs_bill: 109.19, Municipal_bill: 95.25, PUD_bill: 98.81, Cooperative_bill: 84.97, USAverage_bill: 180.15 },
+  { date: "2022-08", OregonIOUs: 0.1212, Municipal: 0.1210, PUD: 0.1031, Cooperative: 0.1022, USAverage: 0.1582, OregonIOUs_bill: 108.67, Municipal_bill: 96.71, PUD_bill: 123.25, Cooperative_bill: 97.50, USAverage_bill: 180.39 },
+  { date: "2022-09", OregonIOUs: 0.1222, Municipal: 0.1218, PUD: 0.1017, Cooperative: 0.1032, USAverage: 0.1619, OregonIOUs_bill: 83.07, Municipal_bill: 81.81, PUD_bill: 105.92, Cooperative_bill: 92.92, USAverage_bill: 149.27 },
+  { date: "2022-10", OregonIOUs: 0.1236, Municipal: 0.1300, PUD: 0.1148, Cooperative: 0.1073, USAverage: 0.1599, OregonIOUs_bill: 86.18, Municipal_bill: 87.45, PUD_bill: 94.49, Cooperative_bill: 78.87, USAverage_bill: 113.74 },
+  { date: "2022-11", OregonIOUs: 0.1200, Municipal: 0.1183, PUD: 0.0978, Cooperative: 0.0957, USAverage: 0.1555, OregonIOUs_bill: 123.36, Municipal_bill: 130.12, PUD_bill: 128.86, Cooperative_bill: 146.47, USAverage_bill: 114.39 },
+  { date: "2022-12", OregonIOUs: 0.1187, Municipal: 0.1085, PUD: 0.0883, Cooperative: 0.0931, USAverage: 0.1494, OregonIOUs_bill: 142.05, Municipal_bill: 151.71, PUD_bill: 204.42, Cooperative_bill: 188.63, USAverage_bill: 139.51 },
+  { date: "2023-01", OregonIOUs: 0.1342, Municipal: 0.1110, PUD: 0.0913, Cooperative: 0.1023, USAverage: 0.1547, OregonIOUs_bill: 145.41, Municipal_bill: 145.12, PUD_bill: 175.57, Cooperative_bill: 187.82, USAverage_bill: 144.84 },
+  { date: "2023-02", OregonIOUs: 0.1338, Municipal: 0.1182, PUD: 0.0931, Cooperative: 0.1027, USAverage: 0.1598, OregonIOUs_bill: 135.17, Municipal_bill: 138.19, PUD_bill: 157.22, Cooperative_bill: 182.48, USAverage_bill: 127.85 },
+  { date: "2023-03", OregonIOUs: 0.1337, Municipal: 0.1154, PUD: 0.0925, Cooperative: 0.1037, USAverage: 0.1604, OregonIOUs_bill: 135.29, Municipal_bill: 147.47, PUD_bill: 185.67, Cooperative_bill: 172.19, USAverage_bill: 125.25 },
+  { date: "2023-04", OregonIOUs: 0.1366, Municipal: 0.1198, PUD: 0.0947, Cooperative: 0.1050, USAverage: 0.1610, OregonIOUs_bill: 111.23, Municipal_bill: 111.96, PUD_bill: 146.02, Cooperative_bill: 160.33, USAverage_bill: 110.39 },
+  { date: "2023-05", OregonIOUs: 0.1397, Municipal: 0.1299, PUD: 0.0995, Cooperative: 0.1162, USAverage: 0.1614, OregonIOUs_bill: 98.80, Municipal_bill: 99.14, PUD_bill: 112.66, Cooperative_bill: 105.51, USAverage_bill: 114.49 },
+  { date: "2023-06", OregonIOUs: 0.1408, Municipal: 0.1321, PUD: 0.0970, Cooperative: 0.1208, USAverage: 0.1609, OregonIOUs_bill: 96.84, Municipal_bill: 86.38, PUD_bill: 86.92, Cooperative_bill: 94.09, USAverage_bill: 137.97 },
+  { date: "2023-07", OregonIOUs: 0.1396, Municipal: 0.1303, PUD: 0.1067, Cooperative: 0.1171, USAverage: 0.1586, OregonIOUs_bill: 123.94, Municipal_bill: 97.54, PUD_bill: 109.81, Cooperative_bill: 103.14, USAverage_bill: 179.43 },
+  { date: "2023-08", OregonIOUs: 0.1387, Municipal: 0.1269, PUD: 0.1043, Cooperative: 0.1181, USAverage: 0.1591, OregonIOUs_bill: 121.77, Municipal_bill: 103.74, PUD_bill: 124.44, Cooperative_bill: 100.59, USAverage_bill: 180.82 },
+  { date: "2023-09", OregonIOUs: 0.1421, Municipal: 0.1290, PUD: 0.1084, Cooperative: 0.1229, USAverage: 0.1627, OregonIOUs_bill: 89.83, Municipal_bill: 80.18, PUD_bill: 109.44, Cooperative_bill: 89.89, USAverage_bill: 152.78 },
+  { date: "2023-10", OregonIOUs: 0.1421, Municipal: 0.1351, PUD: 0.1079, Cooperative: 0.1185, USAverage: 0.1648, OregonIOUs_bill: 101.00, Municipal_bill: 98.43, PUD_bill: 91.16, Cooperative_bill: 99.80, USAverage_bill: 119.98 },
+  { date: "2023-11", OregonIOUs: 0.1401, Municipal: 0.1237, PUD: 0.1018, Cooperative: 0.1098, USAverage: 0.1619, OregonIOUs_bill: 124.65, Municipal_bill: 123.08, PUD_bill: 129.18, Cooperative_bill: 129.99, USAverage_bill: 116.50 },
+  { date: "2023-12", OregonIOUs: 0.1382, Municipal: 0.1162, PUD: 0.0835, Cooperative: 0.1049, USAverage: 0.1569, OregonIOUs_bill: 139.13, Municipal_bill: 135.19, PUD_bill: 159.94, Cooperative_bill: 161.33, USAverage_bill: 131.46 },
+  { date: "2024-01", OregonIOUs: 0.1589, Municipal: 0.1157, PUD: 0.0929, Cooperative: 0.1033, USAverage: 0.1541, OregonIOUs_bill: 177.24, Municipal_bill: 146.26, PUD_bill: 174.17, Cooperative_bill: 175.93, USAverage_bill: 154.02 },
+  { date: "2024-02", OregonIOUs: 0.1613, Municipal: 0.1270, PUD: 0.1021, Cooperative: 0.1250, USAverage: 0.1610, OregonIOUs_bill: 145.73, Municipal_bill: 129.41, PUD_bill: 125.51, Cooperative_bill: 190.83, USAverage_bill: 130.91 },
+  { date: "2024-03", OregonIOUs: 0.1617, Municipal: 0.1277, PUD: 0.0959, Cooperative: 0.1266, USAverage: 0.1667, OregonIOUs_bill: 140.59, Municipal_bill: 136.20, PUD_bill: 166.86, Cooperative_bill: 175.67, USAverage_bill: 119.51 },
+  { date: "2024-04", OregonIOUs: 0.1643, Municipal: 0.1337, PUD: 0.1031, Cooperative: 0.1294, USAverage: 0.1686, OregonIOUs_bill: 115.72, Municipal_bill: 107.38, PUD_bill: 128.36, Cooperative_bill: 155.01, USAverage_bill: 111.83 },
+  { date: "2024-05", OregonIOUs: 0.1676, Municipal: 0.1363, PUD: 0.1098, Cooperative: 0.1341, USAverage: 0.1640, OregonIOUs_bill: 111.93, Municipal_bill: 99.58, PUD_bill: 117.48, Cooperative_bill: 130.88, USAverage_bill: 123.36 },
+  { date: "2024-06", OregonIOUs: 0.1665, Municipal: 0.1434, PUD: 0.1095, Cooperative: 0.1378, USAverage: 0.1638, OregonIOUs_bill: 110.46, Municipal_bill: 88.72, PUD_bill: 93.26, Cooperative_bill: 117.26, USAverage_bill: 159.36 },
+  { date: "2024-07", OregonIOUs: 0.1631, Municipal: 0.1364, PUD: 0.1135, Cooperative: 0.1392, USAverage: 0.1662, OregonIOUs_bill: 145.37, Municipal_bill: 113.21, PUD_bill: 117.35, Cooperative_bill: 113.43, USAverage_bill: 190.77 },
+  { date: "2024-08", OregonIOUs: 0.1646, Municipal: 0.1340, PUD: 0.1041, Cooperative: 0.1347, USAverage: 0.1660, OregonIOUs_bill: 129.92, Municipal_bill: 99.64, PUD_bill: 123.82, Cooperative_bill: 128.89, USAverage_bill: 183.94 },
+  { date: "2024-09", OregonIOUs: 0.1679, Municipal: 0.1408, PUD: 0.1162, Cooperative: 0.1432, USAverage: 0.1682, OregonIOUs_bill: 110.23, Municipal_bill: 88.94, PUD_bill: 100.83, Cooperative_bill: 103.27, USAverage_bill: 149.62 },
+  { date: "2024-10", OregonIOUs: 0.1686, Municipal: 0.1437, PUD: 0.1169, Cooperative: 0.1399, USAverage: 0.1709, OregonIOUs_bill: 113.40, Municipal_bill: 100.37, PUD_bill: 106.27, Cooperative_bill: 111.77, USAverage_bill: 125.74 },
+  { date: "2024-11", OregonIOUs: 0.1629, Municipal: 0.1315, PUD: 0.1002, Cooperative: 0.1269, USAverage: 0.1685, OregonIOUs_bill: 145.44, Municipal_bill: 124.66, PUD_bill: 128.58, Cooperative_bill: 172.84, USAverage_bill: 116.22 },
+  { date: "2024-12", OregonIOUs: 0.1590, Municipal: 0.1214, PUD: 0.0966, Cooperative: 0.1239, USAverage: 0.1627, OregonIOUs_bill: 165.54, Municipal_bill: 154.36, PUD_bill: 184.94, Cooperative_bill: 202.29, USAverage_bill: 141.54 },
+  { date: "2025-01", OregonIOUs: 0.1644, Municipal: 0.1233, PUD: 0.1005, Cooperative: 0.1240, USAverage: 0.1595, OregonIOUs_bill: 181.26, Municipal_bill: 168.11, PUD_bill: 179.44, Cooperative_bill: 200.70, USAverage_bill: 169.60 },
+  { date: "2025-02", OregonIOUs: 0.1683, Municipal: 0.1326, PUD: 0.0931, Cooperative: 0.1222, USAverage: 0.1644, OregonIOUs_bill: 161.23, Municipal_bill: 157.56, PUD_bill: 196.91, Cooperative_bill: 223.84, USAverage_bill: 147.15 },
+  { date: "2025-03", OregonIOUs: 0.1726, Municipal: 0.1388, PUD: 0.1049, Cooperative: 0.1279, USAverage: 0.1711, OregonIOUs_bill: 143.05, Municipal_bill: 136.84, PUD_bill: 159.74, Cooperative_bill: 165.17, USAverage_bill: 130.10 },
+  { date: "2025-04", OregonIOUs: 0.1721, Municipal: 0.1459, PUD: 0.1104, Cooperative: 0.1295, USAverage: 0.1745, OregonIOUs_bill: 114.93, Municipal_bill: 118.74, PUD_bill: 125.50, Cooperative_bill: 154.12, USAverage_bill: 118.18 },
+  { date: "2025-05", OregonIOUs: 0.1763, Municipal: 0.1528, PUD: 0.1156, Cooperative: 0.1381, USAverage: 0.1747, OregonIOUs_bill: 109.32, Municipal_bill: 111.20, PUD_bill: 106.57, Cooperative_bill: 116.46, USAverage_bill: 127.52 },
+  { date: "2025-06", OregonIOUs: 0.1748, Municipal: 0.1554, PUD: 0.1215, Cooperative: 0.1388, USAverage: 0.1747, OregonIOUs_bill: 118.94, Municipal_bill: 111.77, PUD_bill: 107.53, Cooperative_bill: 114.27, USAverage_bill: 165.26 },
+  { date: "2025-07", OregonIOUs: 0.1718, Municipal: 0.1467, PUD: 0.1171, Cooperative: 0.1385, USAverage: 0.1747, OregonIOUs_bill: 145.61, Municipal_bill: 134.06, PUD_bill: 123.77, Cooperative_bill: 115.19, USAverage_bill: 203.53 },
+  { date: "2025-08", OregonIOUs: 0.1731, Municipal: 0.1447, PUD: 0.1084, Cooperative: 0.1397, USAverage: 0.1762, OregonIOUs_bill: 147.72, Municipal_bill: 115.21, PUD_bill: 129.85, Cooperative_bill: 111.73, USAverage_bill: 189.86 },
+  { date: "2025-09", OregonIOUs: 0.1761, Municipal: 0.1481, PUD: 0.1165, Cooperative: 0.1400, USAverage: 0.1807, OregonIOUs_bill: 116.18, Municipal_bill: 98.11, PUD_bill: 121.58, Cooperative_bill: 111.32, USAverage_bill: 158.47 },
+  { date: "2025-10", OregonIOUs: 0.1771, Municipal: 0.1559, PUD: 0.1262, Cooperative: 0.1368, USAverage: 0.1798, OregonIOUs_bill: 123.45, Municipal_bill: 110.12, PUD_bill: 104.63, Cooperative_bill: 120.96, USAverage_bill: 132.85 },
+];
+
+// Individual IOU monthly data (2022-2025) - Verified from EIA Form 861M
+const iouMonthlyData = [
+  { date: "2022-01", PGE: 0.1310, PacifiCorp: 0.1014, IdahoPower: 0.0958, PGE_bill: 136.43, PacifiCorp_bill: 127.04, IdahoPower_bill: 172.20 },
+  { date: "2022-02", PGE: 0.1321, PacifiCorp: 0.0990, IdahoPower: 0.0961, PGE_bill: 116.39, PacifiCorp_bill: 104.53, IdahoPower_bill: 142.94 },
+  { date: "2022-03", PGE: 0.1340, PacifiCorp: 0.0975, IdahoPower: 0.0956, PGE_bill: 110.53, PacifiCorp_bill: 93.95, IdahoPower_bill: 107.94 },
+  { date: "2022-04", PGE: 0.1343, PacifiCorp: 0.0987, IdahoPower: 0.0956, PGE_bill: 105.79, PacifiCorp_bill: 89.11, IdahoPower_bill: 94.98 },
+  { date: "2022-05", PGE: 0.1406, PacifiCorp: 0.0977, IdahoPower: 0.0963, PGE_bill: 96.97, PacifiCorp_bill: 75.79, IdahoPower_bill: 81.18 },
+  { date: "2022-06", PGE: 0.1418, PacifiCorp: 0.0986, IdahoPower: 0.1337, PGE_bill: 92.81, PacifiCorp_bill: 70.63, IdahoPower_bill: 110.02 },
+  { date: "2022-07", PGE: 0.1384, PacifiCorp: 0.0999, IdahoPower: 0.1032, PGE_bill: 119.04, PacifiCorp_bill: 93.71, IdahoPower_bill: 131.76 },
+  { date: "2022-08", PGE: 0.1383, PacifiCorp: 0.0972, IdahoPower: 0.1047, PGE_bill: 120.87, PacifiCorp_bill: 89.71, IdahoPower_bill: 129.03 },
+  { date: "2022-09", PGE: 0.1403, PacifiCorp: 0.0973, IdahoPower: 0.1079, PGE_bill: 92.40, PacifiCorp_bill: 68.82, IdahoPower_bill: 88.97 },
+  { date: "2022-10", PGE: 0.1409, PacifiCorp: 0.1002, IdahoPower: 0.1046, PGE_bill: 94.60, PacifiCorp_bill: 73.37, IdahoPower_bill: 89.59 },
+  { date: "2022-11", PGE: 0.1360, PacifiCorp: 0.1009, IdahoPower: 0.1028, PGE_bill: 127.54, PacifiCorp_bill: 116.35, IdahoPower_bill: 150.63 },
+  { date: "2022-12", PGE: 0.1345, PacifiCorp: 0.0991, IdahoPower: 0.1041, PGE_bill: 149.16, PacifiCorp_bill: 130.18, IdahoPower_bill: 185.89 },
+  { date: "2023-01", PGE: 0.1491, PacifiCorp: 0.1168, IdahoPower: 0.1051, PGE_bill: 147.55, PacifiCorp_bill: 141.51, IdahoPower_bill: 171.31 },
+  { date: "2023-02", PGE: 0.1486, PacifiCorp: 0.1160, IdahoPower: 0.1055, PGE_bill: 138.76, PacifiCorp_bill: 129.35, IdahoPower_bill: 150.44 },
+  { date: "2023-03", PGE: 0.1494, PacifiCorp: 0.1148, IdahoPower: 0.1046, PGE_bill: 139.80, PacifiCorp_bill: 128.25, IdahoPower_bill: 144.22 },
+  { date: "2023-04", PGE: 0.1525, PacifiCorp: 0.1156, IdahoPower: 0.1056, PGE_bill: 119.32, PacifiCorp_bill: 99.22, IdahoPower_bill: 104.84 },
+  { date: "2023-05", PGE: 0.1548, PacifiCorp: 0.1192, IdahoPower: 0.1061, PGE_bill: 106.60, PacifiCorp_bill: 87.44, IdahoPower_bill: 83.58 },
+  { date: "2023-06", PGE: 0.1545, PacifiCorp: 0.1231, IdahoPower: 0.1202, PGE_bill: 101.07, PacifiCorp_bill: 90.39, IdahoPower_bill: 99.24 },
+  { date: "2023-07", PGE: 0.1518, PacifiCorp: 0.1242, IdahoPower: 0.1152, PGE_bill: 127.18, PacifiCorp_bill: 118.61, IdahoPower_bill: 141.21 },
+  { date: "2023-08", PGE: 0.1508, PacifiCorp: 0.1218, IdahoPower: 0.1155, PGE_bill: 130.21, PacifiCorp_bill: 109.07, IdahoPower_bill: 120.86 },
+  { date: "2023-09", PGE: 0.1566, PacifiCorp: 0.1222, IdahoPower: 0.1168, PGE_bill: 96.64, PacifiCorp_bill: 79.60, IdahoPower_bill: 88.70 },
+  { date: "2023-10", PGE: 0.1542, PacifiCorp: 0.1267, IdahoPower: 0.1163, PGE_bill: 103.90, PacifiCorp_bill: 96.72, IdahoPower_bill: 97.50 },
+  { date: "2023-11", PGE: 0.1534, PacifiCorp: 0.1241, IdahoPower: 0.1155, PGE_bill: 126.21, PacifiCorp_bill: 121.88, IdahoPower_bill: 141.15 },
+  { date: "2023-12", PGE: 0.1516, PacifiCorp: 0.1211, IdahoPower: 0.1200, PGE_bill: 143.82, PacifiCorp_bill: 131.07, IdahoPower_bill: 177.75 },
+  { date: "2024-01", PGE: 0.1765, PacifiCorp: 0.1369, IdahoPower: 0.1156, PGE_bill: 186.42, PacifiCorp_bill: 162.99, IdahoPower_bill: 192.16 },
+  { date: "2024-02", PGE: 0.1799, PacifiCorp: 0.1387, IdahoPower: 0.1149, PGE_bill: 151.85, PacifiCorp_bill: 136.66, IdahoPower_bill: 139.06 },
+  { date: "2024-03", PGE: 0.1801, PacifiCorp: 0.1388, IdahoPower: 0.1152, PGE_bill: 147.84, PacifiCorp_bill: 129.88, IdahoPower_bill: 130.84 },
+  { date: "2024-04", PGE: 0.1839, PacifiCorp: 0.1398, IdahoPower: 0.1161, PGE_bill: 122.29, PacifiCorp_bill: 106.26, IdahoPower_bill: 97.18 },
+  { date: "2024-05", PGE: 0.1850, PacifiCorp: 0.1447, IdahoPower: 0.1162, PGE_bill: 119.54, PacifiCorp_bill: 100.89, IdahoPower_bill: 92.68 },
+  { date: "2024-06", PGE: 0.1849, PacifiCorp: 0.1437, IdahoPower: 0.1034, PGE_bill: 116.58, PacifiCorp_bill: 101.57, IdahoPower_bill: 94.40 },
+  { date: "2024-07", PGE: 0.1800, PacifiCorp: 0.1415, IdahoPower: 0.1027, PGE_bill: 154.97, PacifiCorp_bill: 131.26, IdahoPower_bill: 126.63 },
+  { date: "2024-08", PGE: 0.1851, PacifiCorp: 0.1394, IdahoPower: 0.1029, PGE_bill: 137.46, PacifiCorp_bill: 119.00, IdahoPower_bill: 108.71 },
+  { date: "2024-09", PGE: 0.1874, PacifiCorp: 0.1416, IdahoPower: 0.1041, PGE_bill: 120.62, PacifiCorp_bill: 95.24, IdahoPower_bill: 81.16 },
+  { date: "2024-10", PGE: 0.1869, PacifiCorp: 0.1451, IdahoPower: 0.1156, PGE_bill: 120.03, PacifiCorp_bill: 103.76, IdahoPower_bill: 97.22 },
+  { date: "2024-11", PGE: 0.1811, PacifiCorp: 0.1419, IdahoPower: 0.1204, PGE_bill: 148.14, PacifiCorp_bill: 141.35, IdahoPower_bill: 146.94 },
+  { date: "2024-12", PGE: 0.1786, PacifiCorp: 0.1356, IdahoPower: 0.1210, PGE_bill: 171.39, PacifiCorp_bill: 156.13, IdahoPower_bill: 186.41 },
+  { date: "2025-01", PGE: 0.1822, PacifiCorp: 0.1443, IdahoPower: 0.1215, PGE_bill: 181.70, PacifiCorp_bill: 180.23, IdahoPower_bill: 195.30 },
+  { date: "2025-02", PGE: 0.1857, PacifiCorp: 0.1480, IdahoPower: 0.1220, PGE_bill: 163.59, PacifiCorp_bill: 157.23, IdahoPower_bill: 177.18 },
+  { date: "2025-03", PGE: 0.1895, PacifiCorp: 0.1519, IdahoPower: 0.1179, PGE_bill: 148.01, PacifiCorp_bill: 135.87, IdahoPower_bill: 128.88 },
+  { date: "2025-04", PGE: 0.1897, PacifiCorp: 0.1507, IdahoPower: 0.1225, PGE_bill: 118.58, PacifiCorp_bill: 109.77, IdahoPower_bill: 99.35 },
+  { date: "2025-05", PGE: 0.1924, PacifiCorp: 0.1555, IdahoPower: 0.1225, PGE_bill: 114.70, PacifiCorp_bill: 101.46, IdahoPower_bill: 96.70 },
+  { date: "2025-06", PGE: 0.1896, PacifiCorp: 0.1564, IdahoPower: 0.1159, PGE_bill: 123.18, PacifiCorp_bill: 112.74, IdahoPower_bill: 108.48 },
+  { date: "2025-07", PGE: 0.1860, PacifiCorp: 0.1540, IdahoPower: 0.1167, PGE_bill: 151.09, PacifiCorp_bill: 137.45, IdahoPower_bill: 138.71 },
+  { date: "2025-08", PGE: 0.1871, PacifiCorp: 0.1549, IdahoPower: 0.1172, PGE_bill: 155.11, PacifiCorp_bill: 137.02, IdahoPower_bill: 126.32 },
+  { date: "2025-09", PGE: 0.1918, PacifiCorp: 0.1561, IdahoPower: 0.1199, PGE_bill: 120.92, PacifiCorp_bill: 109.48, IdahoPower_bill: 96.85 },
+  { date: "2025-10", PGE: 0.1910, PacifiCorp: 0.1610, IdahoPower: 0.1181, PGE_bill: 123.27, PacifiCorp_bill: 124.36, IdahoPower_bill: 98.95 },
 ];
 
 const COLORS = {
@@ -931,6 +872,8 @@ export default function OregonEnergyDashboard() {
     "UT",
   ]);
   const [selectedUtilityFilter, setSelectedUtilityFilter] = useState("all");
+  const [monthlyStartYear, setMonthlyStartYear] = useState("2022");
+  const [monthlyMetric, setMonthlyMetric] = useState("price");
 
   const years = [
     2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024,
@@ -1216,6 +1159,7 @@ export default function OregonEnergyDashboard() {
           >
             {[
               { id: "overview", label: "Executive Summary" },
+              { id: "monthly", label: "Monthly Trends" },
               { id: "ownership", label: "By Ownership Type" },
               { id: "utilities", label: "Individual IOUs" },
               { id: "states", label: "State Comparison" },
@@ -1557,6 +1501,461 @@ export default function OregonEnergyDashboard() {
                   />
                 </LineChart>
               </ResponsiveContainer>
+            </div>
+          </div>
+        )}
+
+        {/* Monthly Trends Tab */}
+        {activeTab === "monthly" && (
+          <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                marginBottom: "24px",
+                flexWrap: "wrap",
+                gap: "16px",
+              }}
+            >
+              <div>
+                <h2 style={{ fontSize: "20px", fontWeight: 700 }}>
+                  Monthly {monthlyMetric === "price" ? "Price" : "Bill"} Trends
+                </h2>
+                <p
+                  style={{
+                    color: "#64748b",
+                    fontSize: "14px",
+                    marginTop: "4px",
+                  }}
+                >
+                  Detailed monthly data for up-to-date analysis (through October 2025)
+                </p>
+              </div>
+              <div style={{ display: "flex", gap: "12px", flexWrap: "wrap", alignItems: "center" }}>
+                <div style={{ display: "flex", borderRadius: "8px", overflow: "hidden", border: "1px solid #e2e8f0" }}>
+                  <button
+                    onClick={() => setMonthlyMetric("price")}
+                    style={{
+                      padding: "8px 16px",
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      background: monthlyMetric === "price" ? COLORS.iou : "white",
+                      color: monthlyMetric === "price" ? "white" : "#475569",
+                      border: "none",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Price (¢/kWh)
+                  </button>
+                  <button
+                    onClick={() => setMonthlyMetric("bill")}
+                    style={{
+                      padding: "8px 16px",
+                      fontSize: "14px",
+                      fontWeight: 500,
+                      background: monthlyMetric === "bill" ? COLORS.iou : "white",
+                      color: monthlyMetric === "bill" ? "white" : "#475569",
+                      border: "none",
+                      borderLeft: "1px solid #e2e8f0",
+                      cursor: "pointer",
+                    }}
+                  >
+                    Avg Bill ($)
+                  </button>
+                </div>
+                <select
+                  value={monthlyStartYear}
+                  onChange={(e) => setMonthlyStartYear(e.target.value)}
+                  style={{
+                    padding: "8px 16px",
+                    borderRadius: "8px",
+                    border: "1px solid #e2e8f0",
+                    fontSize: "14px",
+                  }}
+                >
+                  <option value="2022">From 2022</option>
+                  <option value="2023">From 2023</option>
+                  <option value="2024">From 2024</option>
+                  <option value="2025">2025 Only</option>
+                </select>
+              </div>
+            </div>
+
+            {/* Latest Month Summary Cards */}
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                gap: "16px",
+                marginBottom: "24px",
+              }}
+            >
+              {[
+                { name: "Oregon IOUs", key: "OregonIOUs", color: COLORS.iou },
+                { name: "Municipal", key: "Municipal", color: COLORS.municipal },
+                { name: "PUD", key: "PUD", color: COLORS.pud },
+                { name: "Cooperative", key: "Cooperative", color: COLORS.cooperative },
+                { name: "U.S. Average", key: "USAverage", color: COLORS.usAverage },
+              ].map((item) => {
+                const latestData = monthlyData[monthlyData.length - 1];
+                const prevYearData = monthlyData.find(d => d.date === "2024-10");
+                const priceKey = monthlyMetric === "price" ? item.key : `${item.key}_bill`;
+                const currentValue = latestData[priceKey];
+                const prevValue = prevYearData ? prevYearData[priceKey] : currentValue;
+                const yoyChange = ((currentValue - prevValue) / prevValue * 100).toFixed(1);
+                return (
+                  <div
+                    key={item.name}
+                    style={{
+                      background: "white",
+                      borderRadius: "12px",
+                      padding: "16px",
+                      border: "1px solid #e2e8f0",
+                      borderLeft: `4px solid ${item.color}`,
+                    }}
+                  >
+                    <p style={{ fontSize: "12px", color: "#64748b", marginBottom: "4px" }}>
+                      {item.name}
+                    </p>
+                    <p className="mono" style={{ fontSize: "24px", fontWeight: 700 }}>
+                      {monthlyMetric === "price" 
+                        ? (currentValue * 100).toFixed(1) + "¢"
+                        : "$" + currentValue.toFixed(0)
+                      }
+                    </p>
+                    <p style={{ fontSize: "12px", color: yoyChange > 0 ? "#dc2626" : "#16a34a" }}>
+                      {yoyChange > 0 ? "+" : ""}{yoyChange}% YoY
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Monthly Chart */}
+            <div
+              style={{
+                background: "white",
+                borderRadius: "16px",
+                padding: "24px",
+                border: "1px solid #e2e8f0",
+                marginBottom: "24px",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  marginBottom: "16px",
+                }}
+              >
+                {monthlyMetric === "price" ? "Monthly Residential Price (¢/kWh)" : "Monthly Average Bill ($)"}
+              </h3>
+              <ResponsiveContainer width="100%" height={400}>
+                <LineChart
+                  data={monthlyData.filter(d => d.date >= `${monthlyStartYear}-01`)}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis
+                    dataKey="date"
+                    tick={{ fill: "#64748b", fontSize: 11 }}
+                    angle={-45}
+                    textAnchor="end"
+                    height={60}
+                  />
+                  <YAxis
+                    tick={{ fill: "#64748b", fontSize: 12 }}
+                    tickFormatter={(v) => monthlyMetric === "price" ? (v * 100).toFixed(0) + "¢" : "$" + v.toFixed(0)}
+                    domain={['auto', 'auto']}
+                  />
+                  <Tooltip
+                    formatter={(v) => [monthlyMetric === "price" ? (v * 100).toFixed(2) + "¢/kWh" : "$" + v.toFixed(2)]}
+                    labelFormatter={(label) => {
+                      const [year, month] = label.split("-");
+                      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                      return `${monthNames[parseInt(month) - 1]} ${year}`;
+                    }}
+                  />
+                  <Legend />
+                  <Line
+                    type="monotone"
+                    dataKey={monthlyMetric === "price" ? "OregonIOUs" : "OregonIOUs_bill"}
+                    name="Oregon IOUs"
+                    stroke={COLORS.iou}
+                    strokeWidth={3}
+                    dot={{ r: 3 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey={monthlyMetric === "price" ? "Municipal" : "Municipal_bill"}
+                    name="Municipal"
+                    stroke={COLORS.municipal}
+                    strokeWidth={2}
+                    dot={{ r: 2 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey={monthlyMetric === "price" ? "PUD" : "PUD_bill"}
+                    name="PUD"
+                    stroke={COLORS.pud}
+                    strokeWidth={2}
+                    dot={{ r: 2 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey={monthlyMetric === "price" ? "Cooperative" : "Cooperative_bill"}
+                    name="Cooperative"
+                    stroke={COLORS.cooperative}
+                    strokeWidth={2}
+                    dot={{ r: 2 }}
+                  />
+                  <Line
+                    type="monotone"
+                    dataKey={monthlyMetric === "price" ? "USAverage" : "USAverage_bill"}
+                    name="U.S. Average"
+                    stroke={COLORS.usAverage}
+                    strokeWidth={2}
+                    strokeDasharray="5 5"
+                    dot={{ r: 2 }}
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+
+            {/* Monthly Data Table */}
+            <div
+              style={{
+                background: "white",
+                borderRadius: "16px",
+                border: "1px solid #e2e8f0",
+                overflow: "hidden",
+              }}
+            >
+              <div style={{ padding: "16px", borderBottom: "1px solid #e2e8f0" }}>
+                <h3 style={{ fontWeight: 600 }}>Recent Monthly Data (Last 12 Months) — {monthlyMetric === "price" ? "Price (¢/kWh)" : "Average Bill ($)"}</h3>
+              </div>
+              <div style={{ overflowX: "auto" }}>
+                <table style={{ width: "100%", fontSize: "13px", borderCollapse: "collapse" }}>
+                  <thead style={{ background: "#f8fafc" }}>
+                    <tr>
+                      <th style={{ padding: "10px 12px", textAlign: "left", fontWeight: 600 }}>Month</th>
+                      <th style={{ padding: "10px 12px", textAlign: "right", fontWeight: 600 }}>Oregon IOUs</th>
+                      <th style={{ padding: "10px 12px", textAlign: "right", fontWeight: 600 }}>Municipal</th>
+                      <th style={{ padding: "10px 12px", textAlign: "right", fontWeight: 600 }}>PUD</th>
+                      <th style={{ padding: "10px 12px", textAlign: "right", fontWeight: 600 }}>Cooperative</th>
+                      <th style={{ padding: "10px 12px", textAlign: "right", fontWeight: 600 }}>U.S. Avg</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {monthlyData.slice(-12).reverse().map((row, idx) => {
+                      const [year, month] = row.date.split("-");
+                      const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                      const formatValue = (key) => {
+                        if (monthlyMetric === "price") {
+                          return (row[key] * 100).toFixed(2) + "¢";
+                        } else {
+                          return "$" + row[key + "_bill"].toFixed(0);
+                        }
+                      };
+                      return (
+                        <tr key={row.date} style={{ borderTop: "1px solid #f1f5f9", background: idx === 0 ? "#fffbeb" : "transparent" }}>
+                          <td style={{ padding: "10px 12px", fontWeight: idx === 0 ? 600 : 400 }}>
+                            {monthNames[parseInt(month) - 1]} {year}
+                            {idx === 0 && <span style={{ marginLeft: "8px", fontSize: "10px", background: "#fbbf24", color: "#78350f", padding: "2px 6px", borderRadius: "4px" }}>LATEST</span>}
+                          </td>
+                          <td className="mono" style={{ padding: "10px 12px", textAlign: "right", color: COLORS.iou }}>{formatValue("OregonIOUs")}</td>
+                          <td className="mono" style={{ padding: "10px 12px", textAlign: "right", color: COLORS.municipal }}>{formatValue("Municipal")}</td>
+                          <td className="mono" style={{ padding: "10px 12px", textAlign: "right", color: COLORS.pud }}>{formatValue("PUD")}</td>
+                          <td className="mono" style={{ padding: "10px 12px", textAlign: "right", color: COLORS.cooperative }}>{formatValue("Cooperative")}</td>
+                          <td className="mono" style={{ padding: "10px 12px", textAlign: "right", color: COLORS.usAverage }}>{formatValue("USAverage")}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Individual IOUs Monthly Section */}
+            <div
+              style={{
+                background: "linear-gradient(135deg, #eff6ff 0%, #f8fafc 100%)",
+                borderRadius: "16px",
+                padding: "24px",
+                marginTop: "24px",
+                border: "1px solid #bfdbfe",
+              }}
+            >
+              <h3 style={{ fontSize: "18px", fontWeight: 700, marginBottom: "16px", color: "#1e3a5f" }}>
+                📊 Individual IOU Monthly Trends
+              </h3>
+              
+              {/* IOU Summary Cards */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                  gap: "16px",
+                  marginBottom: "24px",
+                }}
+              >
+                {[
+                  { name: "Portland General Electric", key: "PGE", color: COLORS.pge },
+                  { name: "PacifiCorp", key: "PacifiCorp", color: COLORS.pacificorp },
+                  { name: "Idaho Power", key: "IdahoPower", color: COLORS.idaho },
+                ].map((item) => {
+                  const latestData = iouMonthlyData[iouMonthlyData.length - 1];
+                  const prevYearData = iouMonthlyData.find(d => d.date === "2024-10");
+                  const priceKey = monthlyMetric === "price" ? item.key : `${item.key}_bill`;
+                  const currentValue = latestData[priceKey];
+                  const prevValue = prevYearData ? prevYearData[priceKey] : currentValue;
+                  const yoyChange = ((currentValue - prevValue) / prevValue * 100).toFixed(1);
+                  return (
+                    <div
+                      key={item.name}
+                      style={{
+                        background: "white",
+                        borderRadius: "12px",
+                        padding: "16px",
+                        border: "1px solid #e2e8f0",
+                        borderTop: `4px solid ${item.color}`,
+                      }}
+                    >
+                      <p style={{ fontSize: "12px", color: "#64748b", marginBottom: "4px" }}>
+                        {item.name}
+                      </p>
+                      <p className="mono" style={{ fontSize: "24px", fontWeight: 700 }}>
+                        {monthlyMetric === "price" 
+                          ? (currentValue * 100).toFixed(1) + "¢"
+                          : "$" + currentValue.toFixed(0)
+                        }
+                      </p>
+                      <p style={{ fontSize: "12px", color: yoyChange > 0 ? "#dc2626" : "#16a34a" }}>
+                        {yoyChange > 0 ? "+" : ""}{yoyChange}% YoY
+                      </p>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* IOU Monthly Chart */}
+              <div
+                style={{
+                  background: "white",
+                  borderRadius: "12px",
+                  padding: "20px",
+                  border: "1px solid #e2e8f0",
+                  marginBottom: "24px",
+                }}
+              >
+                <h4 style={{ fontSize: "14px", fontWeight: 600, marginBottom: "16px" }}>
+                  {monthlyMetric === "price" ? "Monthly Price by IOU (¢/kWh)" : "Monthly Average Bill by IOU ($)"}
+                </h4>
+                <ResponsiveContainer width="100%" height={350}>
+                  <LineChart
+                    data={iouMonthlyData.filter(d => d.date >= `${monthlyStartYear}-01`)}
+                    margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                  >
+                    <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                    <XAxis
+                      dataKey="date"
+                      tick={{ fill: "#64748b", fontSize: 11 }}
+                      angle={-45}
+                      textAnchor="end"
+                      height={60}
+                    />
+                    <YAxis
+                      tick={{ fill: "#64748b", fontSize: 12 }}
+                      tickFormatter={(v) => monthlyMetric === "price" ? (v * 100).toFixed(0) + "¢" : "$" + v.toFixed(0)}
+                      domain={['auto', 'auto']}
+                    />
+                    <Tooltip
+                      formatter={(v) => [monthlyMetric === "price" ? (v * 100).toFixed(2) + "¢/kWh" : "$" + v.toFixed(2)]}
+                      labelFormatter={(label) => {
+                        const [year, month] = label.split("-");
+                        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                        return `${monthNames[parseInt(month) - 1]} ${year}`;
+                      }}
+                    />
+                    <Legend />
+                    <Line
+                      type="monotone"
+                      dataKey={monthlyMetric === "price" ? "PGE" : "PGE_bill"}
+                      name="Portland General Electric"
+                      stroke={COLORS.pge}
+                      strokeWidth={3}
+                      dot={{ r: 3 }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey={monthlyMetric === "price" ? "PacifiCorp" : "PacifiCorp_bill"}
+                      name="PacifiCorp"
+                      stroke={COLORS.pacificorp}
+                      strokeWidth={3}
+                      dot={{ r: 3 }}
+                    />
+                    <Line
+                      type="monotone"
+                      dataKey={monthlyMetric === "price" ? "IdahoPower" : "IdahoPower_bill"}
+                      name="Idaho Power"
+                      stroke={COLORS.idaho}
+                      strokeWidth={3}
+                      dot={{ r: 3 }}
+                    />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+
+              {/* IOU Monthly Data Table */}
+              <div
+                style={{
+                  background: "white",
+                  borderRadius: "12px",
+                  border: "1px solid #e2e8f0",
+                  overflow: "hidden",
+                }}
+              >
+                <div style={{ padding: "12px 16px", borderBottom: "1px solid #e2e8f0", background: "#f8fafc" }}>
+                  <h4 style={{ fontWeight: 600, fontSize: "14px" }}>Individual IOU Data (Last 12 Months) — {monthlyMetric === "price" ? "Price (¢/kWh)" : "Average Bill ($)"}</h4>
+                </div>
+                <div style={{ overflowX: "auto" }}>
+                  <table style={{ width: "100%", fontSize: "13px", borderCollapse: "collapse" }}>
+                    <thead style={{ background: "#f8fafc" }}>
+                      <tr>
+                        <th style={{ padding: "10px 12px", textAlign: "left", fontWeight: 600 }}>Month</th>
+                        <th style={{ padding: "10px 12px", textAlign: "right", fontWeight: 600 }}>PGE</th>
+                        <th style={{ padding: "10px 12px", textAlign: "right", fontWeight: 600 }}>PacifiCorp</th>
+                        <th style={{ padding: "10px 12px", textAlign: "right", fontWeight: 600 }}>Idaho Power</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {iouMonthlyData.slice(-12).reverse().map((row, idx) => {
+                        const [year, month] = row.date.split("-");
+                        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+                        const formatIouValue = (key) => {
+                          if (monthlyMetric === "price") {
+                            return (row[key] * 100).toFixed(2) + "¢";
+                          } else {
+                            return "$" + row[key + "_bill"].toFixed(0);
+                          }
+                        };
+                        return (
+                          <tr key={row.date} style={{ borderTop: "1px solid #f1f5f9", background: idx === 0 ? "#fffbeb" : "transparent" }}>
+                            <td style={{ padding: "10px 12px", fontWeight: idx === 0 ? 600 : 400 }}>
+                              {monthNames[parseInt(month) - 1]} {year}
+                              {idx === 0 && <span style={{ marginLeft: "8px", fontSize: "10px", background: "#fbbf24", color: "#78350f", padding: "2px 6px", borderRadius: "4px" }}>LATEST</span>}
+                            </td>
+                            <td className="mono" style={{ padding: "10px 12px", textAlign: "right", color: COLORS.pge }}>{formatIouValue("PGE")}</td>
+                            <td className="mono" style={{ padding: "10px 12px", textAlign: "right", color: COLORS.pacificorp }}>{formatIouValue("PacifiCorp")}</td>
+                            <td className="mono" style={{ padding: "10px 12px", textAlign: "right", color: COLORS.idaho }}>{formatIouValue("IdahoPower")}</td>
+                          </tr>
+                        );
+                      })}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
             </div>
           </div>
         )}
@@ -2468,9 +2867,7 @@ export default function OregonEnergyDashboard() {
                           >
                             -{diff.toFixed(1)}%
                           </td>
-                          <td
-                            style={{ padding: "12px 16px", color: "#475569" }}
-                          >
+                          <td style={{ padding: "12px 16px", color: "#475569" }}>
                             {rc.effectiveDate}
                           </td>
                         </tr>
@@ -2887,10 +3284,12 @@ export default function OregonEnergyDashboard() {
                 }}
               >
                 Rate case data is sourced from{" "}
-                <strong>Oregon Public Utility Commission (OPUC) orders</strong>{" "}
+                <strong>
+                  Oregon Public Utility Commission (OPUC) orders
+                </strong>{" "}
                 for general rate revisions. These represent formal rate change
-                requests filed by investor-owned utilities and the commission's
-                final approved changes.
+                requests filed by investor-owned utilities and the
+                commission's final approved changes.
               </p>
               <div
                 style={{
