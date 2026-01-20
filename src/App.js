@@ -14,6 +14,7 @@ import {
   Area,
   AreaChart,
   ComposedChart,
+  ReferenceLine,
 } from "recharts";
 
 // Annual trend data by ownership type
@@ -677,6 +678,74 @@ const stateData = [
   { year: 2024, state: "WY", price: 0.124679, bill: 107.65, usage: 863.38 },
 ];
 
+// General Rate Case Approvals (OPUC)
+const rateCases = [
+  {
+    utility: "PGE",
+    utilityFull: "Portland General Electric",
+    requested: 4.8,
+    approved: 1.8,
+    effectiveDate: "January 1, 2019",
+    year: 2019,
+  },
+  {
+    utility: "PacifiCorp",
+    utilityFull: "PacifiCorp",
+    requested: 6.0,
+    approved: -1.6,
+    effectiveDate: "January 1, 2022",
+    year: 2022,
+  },
+  {
+    utility: "PGE",
+    utilityFull: "Portland General Electric",
+    requested: 2.9,
+    approved: 0.5,
+    effectiveDate: "May 9, 2022",
+    year: 2022,
+  },
+  {
+    utility: "PacifiCorp",
+    utilityFull: "PacifiCorp",
+    requested: 6.8,
+    approved: 3.9,
+    effectiveDate: "January 1, 2023",
+    year: 2023,
+  },
+  {
+    utility: "PGE",
+    utilityFull: "Portland General Electric",
+    requested: 9.5,
+    approved: 7.3,
+    effectiveDate: "January 1, 2024",
+    year: 2024,
+  },
+  {
+    utility: "Idaho Power",
+    utilityFull: "Idaho Power Co",
+    requested: 19.3,
+    approved: 12.0,
+    effectiveDate: "October 15, 2024",
+    year: 2024,
+  },
+  {
+    utility: "PacifiCorp",
+    utilityFull: "PacifiCorp",
+    requested: 17.9,
+    approved: 8.5,
+    effectiveDate: "January 1, 2025",
+    year: 2025,
+  },
+  {
+    utility: "PGE",
+    utilityFull: "Portland General Electric",
+    requested: 7.4,
+    approved: 3.3,
+    effectiveDate: "January 1, 2025",
+    year: 2025,
+  },
+];
+
 // Monthly data with 12-month rolling averages (sampled for key dates)
 const monthlyData = [
   {
@@ -861,6 +930,7 @@ export default function OregonEnergyDashboard() {
     "MT",
     "UT",
   ]);
+  const [selectedUtilityFilter, setSelectedUtilityFilter] = useState("all");
 
   const years = [
     2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024,
@@ -908,6 +978,31 @@ export default function OregonEnergyDashboard() {
       .filter((d) => compareStates.includes(d.state))
       .sort((a, b) => (b[selectedMetric] || 0) - (a[selectedMetric] || 0));
   }, [compareStates, selectedMetric]);
+
+  // Filter rate cases by utility
+  const filteredRateCases = useMemo(() => {
+    if (selectedUtilityFilter === "all") return rateCases;
+    return rateCases.filter((rc) =>
+      rc.utility.toLowerCase().includes(selectedUtilityFilter.toLowerCase())
+    );
+  }, [selectedUtilityFilter]);
+
+  // Rate case summary stats
+  const rateCaseStats = useMemo(() => {
+    const totalRequested = rateCases.reduce((sum, rc) => sum + rc.requested, 0);
+    const totalApproved = rateCases.reduce((sum, rc) => sum + rc.approved, 0);
+    const avgReduction =
+      rateCases.reduce(
+        (sum, rc) => sum + (rc.requested - rc.approved) / rc.requested,
+        0
+      ) / rateCases.length;
+    return {
+      totalCases: rateCases.length,
+      avgRequested: (totalRequested / rateCases.length).toFixed(1),
+      avgApproved: (totalApproved / rateCases.length).toFixed(1),
+      avgReduction: (avgReduction * 100).toFixed(0),
+    };
+  }, []);
 
   // Summary stats for 2024
   const summaryStats = useMemo(() => {
@@ -978,6 +1073,31 @@ export default function OregonEnergyDashboard() {
         "Avg Monthly Bill ($)",
         "Avg Monthly Usage (kWh)",
       ];
+    } else if (dataType === "ratecases") {
+      data = rateCases;
+      filename = "oregon_rate_cases.csv";
+      headers = [
+        "Utility",
+        "Requested Change (%)",
+        "Approved Change (%)",
+        "Effective Date",
+      ];
+      const csvRows = [headers.join(",")];
+      data.forEach((row) => {
+        csvRows.push(
+          [row.utility, row.requested, row.approved, row.effectiveDate].join(
+            ","
+          )
+        );
+      });
+      const blob = new Blob([csvRows.join("\n")], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+      return;
     } else {
       data = stateData;
       filename = "state_comparison_2024.csv";
@@ -1955,6 +2075,7 @@ export default function OregonEnergyDashboard() {
                 borderRadius: "16px",
                 padding: "24px",
                 border: "1px solid #e2e8f0",
+                marginBottom: "24px",
               }}
             >
               <h3
@@ -2014,6 +2135,425 @@ export default function OregonEnergyDashboard() {
                   />
                 </LineChart>
               </ResponsiveContainer>
+            </div>
+
+            {/* Rate Cases Section */}
+            <div
+              style={{
+                background: "linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)",
+                borderRadius: "16px",
+                padding: "24px",
+                marginBottom: "24px",
+                border: "1px solid #fbbf24",
+              }}
+            >
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "12px",
+                  marginBottom: "16px",
+                }}
+              >
+                <span style={{ fontSize: "24px" }}>⚖️</span>
+                <div>
+                  <h3 style={{ fontSize: "18px", fontWeight: 700 }}>
+                    OPUC General Rate Case Approvals
+                  </h3>
+                  <p style={{ fontSize: "13px", color: "#92400e" }}>
+                    Oregon Public Utility Commission rate revision decisions
+                    (2019-2025)
+                  </p>
+                </div>
+              </div>
+
+              {/* Rate Case Summary Stats */}
+              <div
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))",
+                  gap: "12px",
+                  marginBottom: "20px",
+                }}
+              >
+                <div
+                  style={{
+                    background: "rgba(255,255,255,0.8)",
+                    borderRadius: "8px",
+                    padding: "12px",
+                    textAlign: "center",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: "11px",
+                      color: "#92400e",
+                      textTransform: "uppercase",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Total Cases
+                  </p>
+                  <p
+                    className="mono"
+                    style={{
+                      fontSize: "24px",
+                      fontWeight: 700,
+                      color: "#78350f",
+                    }}
+                  >
+                    {rateCaseStats.totalCases}
+                  </p>
+                </div>
+                <div
+                  style={{
+                    background: "rgba(255,255,255,0.8)",
+                    borderRadius: "8px",
+                    padding: "12px",
+                    textAlign: "center",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: "11px",
+                      color: "#92400e",
+                      textTransform: "uppercase",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Avg Requested
+                  </p>
+                  <p
+                    className="mono"
+                    style={{
+                      fontSize: "24px",
+                      fontWeight: 700,
+                      color: "#dc2626",
+                    }}
+                  >
+                    +{rateCaseStats.avgRequested}%
+                  </p>
+                </div>
+                <div
+                  style={{
+                    background: "rgba(255,255,255,0.8)",
+                    borderRadius: "8px",
+                    padding: "12px",
+                    textAlign: "center",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: "11px",
+                      color: "#92400e",
+                      textTransform: "uppercase",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Avg Approved
+                  </p>
+                  <p
+                    className="mono"
+                    style={{
+                      fontSize: "24px",
+                      fontWeight: 700,
+                      color: "#16a34a",
+                    }}
+                  >
+                    +{rateCaseStats.avgApproved}%
+                  </p>
+                </div>
+                <div
+                  style={{
+                    background: "rgba(255,255,255,0.8)",
+                    borderRadius: "8px",
+                    padding: "12px",
+                    textAlign: "center",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: "11px",
+                      color: "#92400e",
+                      textTransform: "uppercase",
+                      fontWeight: 600,
+                    }}
+                  >
+                    Avg Reduction
+                  </p>
+                  <p
+                    className="mono"
+                    style={{
+                      fontSize: "24px",
+                      fontWeight: 700,
+                      color: "#0369a1",
+                    }}
+                  >
+                    {rateCaseStats.avgReduction}%
+                  </p>
+                </div>
+              </div>
+
+              {/* Filter Buttons */}
+              <div
+                style={{
+                  display: "flex",
+                  gap: "8px",
+                  marginBottom: "16px",
+                  flexWrap: "wrap",
+                }}
+              >
+                {["all", "PGE", "PacifiCorp", "Idaho"].map((filter) => (
+                  <button
+                    key={filter}
+                    onClick={() => setSelectedUtilityFilter(filter)}
+                    style={{
+                      padding: "6px 14px",
+                      borderRadius: "6px",
+                      fontSize: "13px",
+                      fontWeight: 500,
+                      background:
+                        selectedUtilityFilter === filter ? "#78350f" : "white",
+                      color:
+                        selectedUtilityFilter === filter ? "white" : "#78350f",
+                      border: "1px solid #78350f",
+                      cursor: "pointer",
+                    }}
+                  >
+                    {filter === "all" ? "All Utilities" : filter}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Rate Cases Table */}
+            <div
+              style={{
+                background: "white",
+                borderRadius: "16px",
+                border: "1px solid #e2e8f0",
+                overflow: "hidden",
+                marginBottom: "24px",
+              }}
+            >
+              <div
+                style={{
+                  padding: "16px",
+                  borderBottom: "1px solid #e2e8f0",
+                  background: "#f8fafc",
+                }}
+              >
+                <h3 style={{ fontWeight: 600 }}>
+                  Rate Case History ({filteredRateCases.length} cases)
+                </h3>
+              </div>
+              <div style={{ overflowX: "auto" }}>
+                <table
+                  style={{
+                    width: "100%",
+                    fontSize: "14px",
+                    borderCollapse: "collapse",
+                  }}
+                >
+                  <thead style={{ background: "#f8fafc" }}>
+                    <tr>
+                      <th
+                        style={{
+                          padding: "12px 16px",
+                          textAlign: "left",
+                          fontWeight: 600,
+                        }}
+                      >
+                        Utility
+                      </th>
+                      <th
+                        style={{
+                          padding: "12px 16px",
+                          textAlign: "right",
+                          fontWeight: 600,
+                        }}
+                      >
+                        Requested
+                      </th>
+                      <th
+                        style={{
+                          padding: "12px 16px",
+                          textAlign: "right",
+                          fontWeight: 600,
+                        }}
+                      >
+                        Approved
+                      </th>
+                      <th
+                        style={{
+                          padding: "12px 16px",
+                          textAlign: "right",
+                          fontWeight: 600,
+                        }}
+                      >
+                        Difference
+                      </th>
+                      <th
+                        style={{
+                          padding: "12px 16px",
+                          textAlign: "left",
+                          fontWeight: 600,
+                        }}
+                      >
+                        Effective Date
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {filteredRateCases.map((rc, idx) => {
+                      const diff = rc.requested - rc.approved;
+                      const utilityColor =
+                        rc.utility === "PGE"
+                          ? COLORS.pge
+                          : rc.utility === "PacifiCorp"
+                          ? COLORS.pacificorp
+                          : COLORS.idaho;
+                      return (
+                        <tr
+                          key={idx}
+                          style={{ borderTop: "1px solid #f1f5f9" }}
+                        >
+                          <td
+                            style={{
+                              padding: "12px 16px",
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "8px",
+                            }}
+                          >
+                            <div
+                              style={{
+                                width: "8px",
+                                height: "8px",
+                                borderRadius: "50%",
+                                background: utilityColor,
+                              }}
+                            ></div>
+                            {rc.utility}
+                          </td>
+                          <td
+                            className="mono"
+                            style={{
+                              padding: "12px 16px",
+                              textAlign: "right",
+                              color: "#dc2626",
+                            }}
+                          >
+                            +{rc.requested.toFixed(1)}%
+                          </td>
+                          <td
+                            className="mono"
+                            style={{
+                              padding: "12px 16px",
+                              textAlign: "right",
+                              color: rc.approved >= 0 ? "#16a34a" : "#0369a1",
+                              fontWeight: 600,
+                            }}
+                          >
+                            {rc.approved >= 0 ? "+" : ""}
+                            {rc.approved.toFixed(1)}%
+                          </td>
+                          <td
+                            className="mono"
+                            style={{
+                              padding: "12px 16px",
+                              textAlign: "right",
+                              color: "#64748b",
+                            }}
+                          >
+                            -{diff.toFixed(1)}%
+                          </td>
+                          <td
+                            style={{ padding: "12px 16px", color: "#475569" }}
+                          >
+                            {rc.effectiveDate}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            {/* Rate Case Visualization */}
+            <div
+              style={{
+                background: "white",
+                borderRadius: "16px",
+                padding: "24px",
+                border: "1px solid #e2e8f0",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  marginBottom: "16px",
+                }}
+              >
+                Requested vs Approved Rate Changes
+              </h3>
+              <ResponsiveContainer width="100%" height={300}>
+                <BarChart
+                  data={rateCases.map((rc) => ({
+                    name: `${rc.utility} (${rc.year})`,
+                    requested: rc.requested,
+                    approved: rc.approved,
+                    utility: rc.utility,
+                  }))}
+                  margin={{ top: 20, right: 30, left: 20, bottom: 60 }}
+                >
+                  <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
+                  <XAxis
+                    dataKey="name"
+                    tick={{ fill: "#64748b", fontSize: 11 }}
+                    angle={-45}
+                    textAnchor="end"
+                    height={80}
+                  />
+                  <YAxis
+                    tick={{ fill: "#64748b", fontSize: 12 }}
+                    tickFormatter={(v) => v + "%"}
+                  />
+                  <Tooltip
+                    formatter={(v, name) => [
+                      v.toFixed(1) + "%",
+                      name === "requested" ? "Requested" : "Approved",
+                    ]}
+                  />
+                  <Legend />
+                  <Bar
+                    dataKey="requested"
+                    name="Requested"
+                    fill="#fca5a5"
+                    radius={[4, 4, 0, 0]}
+                  />
+                  <Bar
+                    dataKey="approved"
+                    name="Approved"
+                    fill="#86efac"
+                    radius={[4, 4, 0, 0]}
+                  />
+                  <ReferenceLine y={0} stroke="#94a3b8" />
+                </BarChart>
+              </ResponsiveContainer>
+              <p
+                style={{
+                  fontSize: "12px",
+                  color: "#64748b",
+                  marginTop: "12px",
+                  textAlign: "center",
+                }}
+              >
+                Note: OPUC typically approves lower rate increases than
+                requested. PacifiCorp received a rate decrease (-1.6%) in 2022.
+              </p>
             </div>
           </div>
         )}
@@ -2320,6 +2860,56 @@ export default function OregonEnergyDashboard() {
               </div>
             </div>
 
+            {/* Rate Case Methodology */}
+            <div
+              style={{
+                background: "white",
+                borderRadius: "16px",
+                padding: "24px",
+                border: "1px solid #e2e8f0",
+                marginBottom: "24px",
+              }}
+            >
+              <h3
+                style={{
+                  fontSize: "16px",
+                  fontWeight: 600,
+                  marginBottom: "16px",
+                }}
+              >
+                ⚖️ General Rate Case Data
+              </h3>
+              <p
+                style={{
+                  color: "#475569",
+                  lineHeight: 1.6,
+                  marginBottom: "12px",
+                }}
+              >
+                Rate case data is sourced from{" "}
+                <strong>Oregon Public Utility Commission (OPUC) orders</strong>{" "}
+                for general rate revisions. These represent formal rate change
+                requests filed by investor-owned utilities and the commission's
+                final approved changes.
+              </p>
+              <div
+                style={{
+                  background: "#fef3c7",
+                  padding: "12px 16px",
+                  borderRadius: "8px",
+                  marginTop: "12px",
+                }}
+              >
+                <p style={{ fontSize: "13px", color: "#92400e" }}>
+                  <strong>Note:</strong> Approved rate changes may differ
+                  significantly from actual price changes observed in EIA data
+                  due to timing, customer class allocations, power cost
+                  adjustments, and other rate mechanisms outside general rate
+                  cases.
+                </p>
+              </div>
+            </div>
+
             <div
               style={{
                 background: "white",
@@ -2564,6 +3154,57 @@ export default function OregonEnergyDashboard() {
                     width: "48px",
                     height: "48px",
                     borderRadius: "12px",
+                    background: "#fef3c7",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginBottom: "16px",
+                    fontSize: "24px",
+                  }}
+                >
+                  ⚖️
+                </div>
+                <h3 style={{ fontWeight: 600, marginBottom: "8px" }}>
+                  OPUC Rate Cases
+                </h3>
+                <p
+                  style={{
+                    fontSize: "14px",
+                    color: "#64748b",
+                    marginBottom: "16px",
+                  }}
+                >
+                  General rate revision approvals (2019-2025)
+                </p>
+                <button
+                  onClick={() => downloadCSV("ratecases")}
+                  style={{
+                    width: "100%",
+                    padding: "10px",
+                    background: "#b45309",
+                    color: "white",
+                    borderRadius: "8px",
+                    border: "none",
+                    fontWeight: 500,
+                    cursor: "pointer",
+                  }}
+                >
+                  Download CSV
+                </button>
+              </div>
+              <div
+                style={{
+                  background: "white",
+                  borderRadius: "16px",
+                  padding: "24px",
+                  border: "1px solid #e2e8f0",
+                }}
+              >
+                <div
+                  style={{
+                    width: "48px",
+                    height: "48px",
+                    borderRadius: "12px",
                     background: "#ffedd5",
                     display: "flex",
                     alignItems: "center",
@@ -2626,7 +3267,8 @@ export default function OregonEnergyDashboard() {
         >
           <p>
             <strong>Data Source:</strong> U.S. Energy Information Administration
-            (EIA) Form EIA-861M | 2014-2024
+            (EIA) Form EIA-861M | 2014-2024 | Oregon Public Utility Commission
+            (OPUC) rate case orders
           </p>
           <p style={{ marginTop: "8px" }}>
             <strong>Note:</strong> Prices are weighted averages based on actual
